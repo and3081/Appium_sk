@@ -16,9 +16,9 @@ public class DataProvider {
      * @return  стрим аргументов: список: платформа, девайс, ОС,
      *                                    поиск, результат в поиске, результат в статье
      */
-    protected static Stream<Arguments> providerSearchPositive() {
-        return Stream.of(arguments("android", "ver10", "10.0", "Java", "Island of Indonesia", "Island in Indonesia")
-                /*, arguments("ios", "iPhone 12 Pro", "14.2", "Java", "Island of Indonesia", "Island in Indonesia")*/);
+    protected static Stream<Arguments> providerTest01() {
+        return Stream.of(arguments("android", "ver10", "10.0",
+                "Java", "Island of Indonesia", "Island in Indonesia"));
     }
 
     /**
@@ -27,7 +27,7 @@ public class DataProvider {
      *                                    поиск, результат в поиске
      */
     protected static Stream<Arguments> providerSearchNegative() {
-        return Stream.of(arguments("android", "ver10", "10.0", "wfewfewfwegweg")
-                /*, arguments("ios", "iPhone 12 Pro", "14.2", "wfewfewfwegweg")*/);
+        return Stream.of(arguments("android", "ver10", "10.0",
+                "wfewfewfwegweg"));
     }
 }

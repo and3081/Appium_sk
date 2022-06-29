@@ -16,4 +16,10 @@ import org.aeonbits.owner.Config;
 public interface Appium extends Config {
     @Key("base.url")
     String baseUrl();
+
+    @Key("timeout.seconds")
+    String defaultTimeoutExplicitSec();
+
+    @Key("path.screenshot")
+    String pathScreenshot();
 }
