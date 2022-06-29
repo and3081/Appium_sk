@@ -57,6 +57,34 @@ public class BasePageObject {
                 .until(ExpectedConditions.presenceOfElementLocated(getLocatorByString(locator)));
     }
 
+    public boolean waitForElementNotPresent(String locator, String errorMessage) {
+        return wait.withMessage("Ожидание отсутствия элемента исчерпано: " + errorMessage + ":\n" +
+                        locator + "\n")
+                .until(ExpectedConditions.invisibilityOfElementLocated(getLocatorByString(locator)));
+    }
+
+    /**
+     * без ожидания и ошибки
+     */
+    public boolean isElementPresent(String locator) {
+        return getAmountOfElements(locator) > 0;
+    }
+
+    public int getAmountOfElements(String locator) {
+        return driver.findElements(getLocatorByString(locator)).size();
+    }
+
+    public String waitForElementAndGetAttribute(String locator, String attribute, String errorMessage) {
+        return waitForElementPresent(locator, errorMessage).getAttribute(attribute);
+    }
+
+    public boolean waitForAttributeContain(String locator, String attribute, String value, String errorMessage) {
+        return wait.withMessage("Ожидание существования элемента с атрибутом исчерпано: " +
+                        attribute +"/"+ value +"/"+ errorMessage + ":\n" +
+                        locator + "\n")
+                .until(ExpectedConditions.attributeContains(getLocatorByString(locator), attribute, value));
+    }
+
     public WebElement waitForElementVisible(String locator, String errorMessage) {
         return wait.withMessage("Ожидание видимости элемента исчерпано: " + errorMessage + ":\n" +
                         locator + "\n")
@@ -79,13 +107,6 @@ public class BasePageObject {
         WebElement el = waitForElementVisible(locator, errorMessage);
         waitRealSend(el, locator, text);
         return el;
-    }
-
-    public boolean waitForElementNotPresent(String locator, String errorMessage) {
-        By by = this.getLocatorByString(locator);
-        return wait.withMessage("Ожидание отсутствия элемента исчерпано: " + errorMessage + ":\n" +
-                        locator + "\n")
-                .until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
     public WebElement waitForElementAndClear(String locator, String errorMessage) {
@@ -169,18 +190,6 @@ public class BasePageObject {
                     .release()
                     .perform();
         }
-    }
-
-    public int getAmountOfElements(String locator) {
-        return driver.findElements(getLocatorByString(locator)).size();
-    }
-
-    public boolean isElementPresent(String locator) {
-        return getAmountOfElements(locator) > 0;
-    }
-
-    public String waitForElementAndGetAttribute(String locator, String attribute, String errorMessage) {
-        return waitForElementPresent(locator, errorMessage).getAttribute(attribute);
     }
 
     private By getLocatorByString(String locator_with_type) {
