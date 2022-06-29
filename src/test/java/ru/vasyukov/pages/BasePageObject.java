@@ -58,13 +58,15 @@ public class BasePageObject {
     }
 
     public boolean waitForElementNotPresent(String locator, String errorMessage) {
-        return wait.withMessage("Ожидание отсутствия элемента исчерпано: " + errorMessage + ":\n" +
+        return wait.withMessage("Ожидание невидимости/отсутствия элемента исчерпано: " + errorMessage + ":\n" +
                         locator + "\n")
                 .until(ExpectedConditions.invisibilityOfElementLocated(getLocatorByString(locator)));
     }
 
     /**
-     * без ожидания и ошибки
+     * Проверка существования элемента без ожидания и ошибки
+     * @param locator  locator элемента
+     * @return true- существует
      */
     public boolean isElementPresent(String locator) {
         return getAmountOfElements(locator) > 0;
@@ -196,7 +198,7 @@ public class BasePageObject {
         String[] exploded_locator = locator_with_type.split(Pattern.quote(":"), 2);
 
         if (exploded_locator.length != 2) {
-            throw new IllegalArgumentException("В локаторе нет одного символа ':'\n" + locator_with_type);
+            throw new IllegalArgumentException("В локаторе должен быть один символ ':'\n" + locator_with_type);
         }
         String by_type = exploded_locator[0];
 
