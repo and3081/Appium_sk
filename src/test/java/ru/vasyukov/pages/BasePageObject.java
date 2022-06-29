@@ -1,6 +1,7 @@
 package ru.vasyukov.pages;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
@@ -119,13 +120,13 @@ public class BasePageObject {
 
     public void swipeUp(int timeOfSwipeMs) {
         if (driver instanceof AppiumDriver) {
-            TouchAction action = new TouchAction((AppiumDriver) driver);
             Dimension size = driver.manage().window().getSize();
             int x = size.width / 2;
             int start_y = (int) (size.height * 0.8);
             int end_y = (int) (size.height * 0.2);
 
-            action.press(PointOption.point(x, start_y))
+            new TouchAction<>((PerformsTouchActions) driver)
+                    .press(PointOption.point(x, start_y))
                     .waitAction(WaitOptions.waitOptions(Duration.ofMillis(timeOfSwipeMs)))
                     .moveTo(PointOption.point(x, end_y))
                     .release()
@@ -170,23 +171,23 @@ public class BasePageObject {
 
     public void clickElementToTheRightSide(String locator, String errorMessage) {
         if (driver instanceof AppiumDriver) {
-            WebElement el = waitForElementVisible(locator + "/..", errorMessage);
-            int middle_y = el.getLocation().getY() + el.getSize().getHeight() / 2;
-            int point_to_click_x = (el.getLocation().getX() + el.getSize().getWidth()) - 3;
+            Rectangle rectangle = waitForElementVisible(locator, errorMessage).getRect();
+            int middle_y = rectangle.getY() + (rectangle.getHeight() / 2);
+            int point_to_click_x = (rectangle.getX() + rectangle.getWidth()) - 3;
 
-            TouchAction action = new TouchAction((AppiumDriver) driver);
-            action.tap(PointOption.point(point_to_click_x, middle_y)).perform();
+            new TouchAction<>((PerformsTouchActions) driver)
+                    .tap(PointOption.point(point_to_click_x, middle_y)).perform();
         }
     }
 
     public void swipeElementToLeft(String locator, String errorMessage) {
         if (driver instanceof AppiumDriver) {
-            WebElement el = waitForElementVisible(locator, errorMessage);
-            int middle_y = el.getLocation().getY() + el.getSize().getHeight() / 2;
-            int left_x = el.getLocation().getX();
-            int right_x = left_x + el.getSize().getWidth();
-            TouchAction action = new TouchAction((AppiumDriver) driver);
-            action.press(PointOption.point(right_x, middle_y))
+            Rectangle rectangle = waitForElementVisible(locator, errorMessage).getRect();
+            int middle_y = rectangle.getY() + (rectangle.getHeight() / 2);
+            int left_x = rectangle.getX();
+            int right_x = left_x + rectangle.getWidth();
+            new TouchAction<>((PerformsTouchActions) driver)
+                    .press(PointOption.point(right_x, middle_y))
                     .waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
                     .moveTo(PointOption.point(left_x, middle_y))
                     .release()
