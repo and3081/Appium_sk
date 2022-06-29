@@ -1,6 +1,7 @@
 package ru.vasyukov.tests;
 
 import org.junit.jupiter.params.provider.Arguments;
+import ru.vasyukov.properties.TestData;
 
 import java.util.stream.Stream;
 
@@ -17,17 +18,9 @@ public class DataProvider {
      *                                    поиск, результат в поиске, результат в статье
      */
     protected static Stream<Arguments> providerTest01() {
-        return Stream.of(arguments("android", "ver10", "10.0",
+        return Stream.of(arguments(TestData.appium.studioPlatform(),
+                TestData.appium.studioDeviceName(),
+                TestData.appium.studioVersionOs(),
                 "Java", "Island of Indonesia", "Island in Indonesia"));
-    }
-
-    /**
-     * Метод-провайдер для тест-кейса testSearchNegative()
-     * @return  стрим аргументов: список: платформа, девайс, ОС,
-     *                                    поиск, результат в поиске
-     */
-    protected static Stream<Arguments> providerSearchNegative() {
-        return Stream.of(arguments("android", "ver10", "10.0",
-                "wfewfewfwegweg"));
     }
 }

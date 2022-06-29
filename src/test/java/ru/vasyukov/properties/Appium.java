@@ -17,6 +17,15 @@ public interface Appium extends Config {
     @Key("base.url")
     String baseUrl();
 
+    @Key("studio.platform")
+    String studioPlatform();
+
+    @Key("studio.device.name")
+    String studioDeviceName();
+
+    @Key("studio.version.os")
+    String studioVersionOs();
+
     @Key("timeout.seconds")
     String defaultTimeoutExplicitSec();
 
