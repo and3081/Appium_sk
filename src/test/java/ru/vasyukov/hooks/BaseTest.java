@@ -47,4 +47,11 @@ public class BaseTest {
         capabilities.setCapability("app","E:/awa_java/Appium_sk/apps/org.wikipedia.apk");
         return capabilities;
     }
+
+    /**
+     * for debugging, not for the final
+     */
+    protected void pause(long ms) {
+        try { Thread.sleep(ms); } catch (Exception e) {}
+    }
 }

@@ -19,7 +19,7 @@ public class Tests extends BaseTest {
                 .clickItemSettings()
                 .nextPageWikiSettings()
                 .checkTitle(title);
-        try { Thread.sleep(3000);} catch (Exception e) {}
+        pause(2000);
 
 //        //
 //        onboardingPage.skipOnboarding();
