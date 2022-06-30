@@ -4,21 +4,23 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.vasyukov.hooks.BaseTest;
+import ru.vasyukov.pages.BasePageObject;
+import ru.vasyukov.pages.PageWikiMain;
 
 public class Tests extends BaseTest {
     @DisplayName("Тестирование Wiki - ")
     @ParameterizedTest(name = "{arguments}")
     @MethodSource("ru.vasyukov.tests.DataProvider#providerTest01")
     public void test01(String platform, String deviceName, String versionOS,
-                           String searchText,
-                           String searchResultText,
-                           String topicResultText) {
+                           String title) {
         connect(platform, deviceName, versionOS);
-        // созд.объектов в зависимости от платформы
-//        IOnboardingPageObject onboardingPage = OnboardingPageFactory.get(this.driver, platform);
-//        IStartPageObject startPage = StartPageFactory.get(this.driver, platform);
-//        ISearchPageObject searchPage = SearchPageFactory.get(this.driver, platform);
-//
+        BasePageObject.initPageMain(driver)
+                .clickButtonMenu()
+                .clickItemSettings()
+                .nextPageWikiSettings()
+                .checkTitle(title);
+        try { Thread.sleep(3000);} catch (Exception e) {}
+
 //        //
 //        onboardingPage.skipOnboarding();
 //        // click на search поле - переход на страницу поиска

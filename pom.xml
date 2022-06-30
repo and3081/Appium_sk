@@ -16,7 +16,7 @@
         <junit.jupiter.version>5.7.0-M1</junit.jupiter.version>
         <java-client.version>6.1.0</java-client.version>
         <aspectj.version>1.9.5</aspectj.version>
-        <allure.version>2.8.1</allure.version>
+        <allure.version>2.17.3</allure.version>
 
         <slf4j.version>1.7.30</slf4j.version>
         <owner.version>1.0.12</owner.version>

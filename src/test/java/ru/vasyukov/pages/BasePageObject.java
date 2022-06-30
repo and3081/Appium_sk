@@ -6,6 +6,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
@@ -18,6 +19,7 @@ import ru.vasyukov.properties.TestData;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("unused")
@@ -39,10 +41,21 @@ public class BasePageObject {
      */
     protected static Actions actions;
 
-    public BasePageObject(RemoteWebDriver driver) {
+    private static void init(RemoteWebDriver driver) {
         BasePageObject.driver = driver;
         wait = new WebDriverWait(driver, timeoutInSeconds);
         actions = new Actions(driver);
+    }
+
+    @Step("Стартовая страница")
+    public static PageWikiMain initPageMain(RemoteWebDriver driver) {
+        init(driver);
+        return new PageWikiMain();
+    }
+
+    @Step("Страница Settings")
+    public PageWikiSettings nextPageWikiSettings() {
+        return new PageWikiSettings();
     }
 
     public WebElement waitForElementPresent(String locator, String errorMessage) {
@@ -92,6 +105,12 @@ public class BasePageObject {
         return wait.withMessage("Ожидание видимости элемента исчерпано: " + errorMessage + ":\n" +
                         locator + "\n")
                 .until(ExpectedConditions.visibilityOfElementLocated(getLocatorByString(locator)));
+    }
+
+    public List<WebElement> waitForChildElementVisible(WebElement parent, String childLocator, String errorMessage) {
+        return wait.withMessage("Ожидание видимости дочернего элемента исчерпано: " + errorMessage + ":\n" +
+                        parent + "\n" + getLocatorByString(childLocator) + "\n")
+                .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, getLocatorByString(childLocator)));
     }
 
     public WebElement waitForElementClickable(String locator, String errorMessage) {
@@ -195,7 +214,7 @@ public class BasePageObject {
         }
     }
 
-    private By getLocatorByString(String locator_with_type) {
+    public By getLocatorByString(String locator_with_type) {
         String[] exploded_locator = locator_with_type.split(Pattern.quote(":"), 2);
 
         if (exploded_locator.length != 2) {

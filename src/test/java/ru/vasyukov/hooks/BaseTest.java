@@ -44,7 +44,7 @@ public class BaseTest {
         capabilities.setCapability("automationName","Appium");
         capabilities.setCapability("appPackage","org.wikipedia");
         capabilities.setCapability("appActivity",".main.MainActivity");
-        capabilities.setCapability("app","E:/awa_java/Android1/apps/org.wikipedia.apk");
+        capabilities.setCapability("app","E:/awa_java/Appium_sk/apps/org.wikipedia.apk");
         return capabilities;
     }
 }
