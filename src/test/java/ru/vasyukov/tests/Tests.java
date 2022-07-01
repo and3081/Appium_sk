@@ -19,8 +19,10 @@ public class Tests extends BaseTest {
                 .nextPageWikiSettings()
                 .checkTitle(title)
                 .listSettings(counts)
-                .switchListSettings()
-                .switchListSettings();
+                .switchAllSettings()
+                .checkAllSettings()
+                .switchAllSettings()
+                .checkAllSettings();
         pause(2000);
 
 //        //

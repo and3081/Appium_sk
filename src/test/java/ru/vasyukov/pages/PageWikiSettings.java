@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,8 @@ public class PageWikiSettings extends BasePageObject {
     private final String CHILDS = "xpath:.//*";
 
     private List<WebElement> listSettings = null;
+    private List<String> listOldValuesSettings = null;
+    private List<String> listNewValuesSettings = null;
 
     @Step("Проверка Title")
     public PageWikiSettings checkTitle(String title) {
@@ -42,12 +45,39 @@ public class PageWikiSettings extends BasePageObject {
         return this;
     }
 
-    @Step("Все опции switch")
-    public PageWikiSettings switchListSettings() {
+    private void readValuesSettings(List<String> list) {
         if (listSettings != null) {
-            System.out.println(listSettings.get(0).getText());
+            listSettings.forEach(el -> list.add(el.getText()));
+        } else {
+            Assertions.fail("Список опций не найден");
+        }
+    }
+
+    @Step("Switch всех опций")
+    public PageWikiSettings switchAllSettings() {
+        if (listSettings != null) {
+            listOldValuesSettings = new ArrayList<>(listSettings.size());
+            readValuesSettings(listOldValuesSettings);
             listSettings.forEach(el -> waitRealClick(el, null));
-            System.out.println(listSettings.get(0).getText());
+            listNewValuesSettings = new ArrayList<>(listSettings.size());
+            readValuesSettings(listNewValuesSettings);
+        } else {
+            Assertions.fail("Список опций не найден");
+        }
+        return this;
+    }
+
+    @Step("Проверка изменения всех опций")
+    public PageWikiSettings checkAllSettings() {
+        if (listSettings != null) {
+            for (int i=0; i<listSettings.size(); i++) {
+                if ((!listOldValuesSettings.get(i).equals("ON") && !listOldValuesSettings.get(i).equals("OFF")) ||
+                        (!listNewValuesSettings.get(i).equals("ON") && !listNewValuesSettings.get(i).equals("OFF")) ||
+                        listNewValuesSettings.get(i).equals(listOldValuesSettings.get(i))) {
+                    Assertions.fail(String.format("Опция %d неправильна или не изменилась: %s -> %s",
+                            i+1, listOldValuesSettings.get(i), listNewValuesSettings.get(i)));
+                }
+            }
         } else {
             Assertions.fail("Список опций не найден");
         }
