@@ -4,14 +4,13 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import ru.vasyukov.properties.TestData;
 
 import java.net.URL;
 
 public class BaseTest {
-    protected AppiumDriver<WebElement> driver;
+    protected AppiumDriver driver;
 
     public void connect(String platform, String deviceName, String versionOS) {
         URL URL = null;
@@ -21,7 +20,7 @@ public class BaseTest {
             Assertions.fail("Неправильный url: " + TestData.appium.baseUrl());
         }
         if (platform.equals("android")) {
-            this.driver = new AndroidDriver<>(URL, getAndroidDesiredCapabilities(deviceName, versionOS));
+            this.driver = new AndroidDriver(URL, getAndroidDesiredCapabilities(deviceName, versionOS));
         } else {
             Assertions.fail("Неправильная платформа: " + platform);
         }
@@ -52,6 +51,6 @@ public class BaseTest {
      * for debugging, not for the final
      */
     protected void pause(long ms) {
-        try { Thread.sleep(ms); } catch (Exception e) {}
+        try { Thread.sleep(ms); } catch (Exception e) { }
     }
 }

@@ -31,7 +31,7 @@ public class BasePageObject {
     /**
      * Значение явного ожидания ms из проперти
      */
-    protected static long timeoutInSeconds = Long.parseLong(TestData.appium.defaultTimeoutExplicitSec());
+    protected static long timeoutMs = Long.parseLong(TestData.appium.defaultTimeoutExplicitMs());
     /**
      * Объект явных ожиданий
      */
@@ -43,7 +43,7 @@ public class BasePageObject {
 
     private static void init(RemoteWebDriver driver) {
         BasePageObject.driver = driver;
-        wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait = new WebDriverWait(driver, Duration.ofMillis(timeoutMs));
         actions = new Actions(driver);
     }
 
@@ -65,7 +65,7 @@ public class BasePageObject {
     }
 
     public WebElement waitTimeoutForElementPresent(String locator, String errorMessage, long timeoutInSeconds) {
-        return new WebDriverWait(driver, timeoutInSeconds)
+        return new WebDriverWait(driver, Duration.ofMillis(timeoutMs))
                 .withMessage("Элемент не существует: " + errorMessage + ":\n" +
                         locator + "\n")
                 .until(ExpectedConditions.presenceOfElementLocated(getLocatorByString(locator)));
@@ -269,7 +269,7 @@ public class BasePageObject {
     public boolean waitRealClick(WebElement el, String locator) {
         boolean[] isClick = new boolean[]{false};
 
-        new WebDriverWait(driver, timeoutInSeconds)
+        new WebDriverWait(driver, Duration.ofMillis(timeoutMs))
                 .pollingEvery(Duration.ofMillis(200))
                 .ignoreAll(List.of(TimeoutException.class))
                 .withMessage("Ожидание клика на элемент исчерпано (клик чем-то закрыт):\n" + locator + "\n")
@@ -302,7 +302,7 @@ public class BasePageObject {
     public boolean waitRealSend(WebElement el, String locator, String text) {
         boolean[] isSend = new boolean[]{false};
 
-        new WebDriverWait(driver, timeoutInSeconds)
+        new WebDriverWait(driver, Duration.ofMillis(timeoutMs))
                 .pollingEvery(Duration.ofMillis(200))
                 .ignoreAll(List.of(TimeoutException.class))
                 .withMessage("Ожидание send '"+ text +"' в элемент исчерпано:\n" + locator + "\n")

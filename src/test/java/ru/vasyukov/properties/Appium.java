@@ -26,8 +26,8 @@ public interface Appium extends Config {
     @Key("studio.version.os")
     String studioVersionOs();
 
-    @Key("timeout.seconds")
-    String defaultTimeoutExplicitSec();
+    @Key("timeout.ms")
+    String defaultTimeoutExplicitMs();
 
     @Key("path.screenshot")
     String pathScreenshot();
