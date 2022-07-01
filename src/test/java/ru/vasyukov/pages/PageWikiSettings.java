@@ -56,11 +56,13 @@ public class PageWikiSettings extends BasePageObject {
     @Step("Switch всех опций")
     public PageWikiSettings switchAllSettings() {
         if (listSettings != null) {
+            windowScreenshot("До переключения");
             listOldValuesSettings = new ArrayList<>(listSettings.size());
             readValuesSettings(listOldValuesSettings);
             listSettings.forEach(el -> waitRealClick(el, null));
             listNewValuesSettings = new ArrayList<>(listSettings.size());
             readValuesSettings(listNewValuesSettings);
+            windowScreenshot("После переключения");
         } else {
             Assertions.fail("Список опций не найден");
         }

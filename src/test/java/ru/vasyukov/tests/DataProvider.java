@@ -13,9 +13,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @SuppressWarnings("unused")
 public class DataProvider {
     /**
-     * Метод-провайдер для тест-кейса testSearchPositive()
+     * Метод-провайдер для тест-кейса test01()
      * @return  стрим аргументов: список: платформа, девайс, ОС,
-     *                                    title
+     *
      */
     protected static Stream<Arguments> providerTest01() {
         return Stream.of(arguments(TestData.appium.studioPlatform(),

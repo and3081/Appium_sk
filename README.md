@@ -1,9 +1,17 @@
-<h1>Тестирование Appium - Android</h1>
-2 теста для Wiki-приложения
+#### Тестирование - Appium Android, Java17, Junit5, Maven, Allure
 
-# <h2>запуск всех тестов</h2>
+## запуск всех тестов
 mvn clean test
 
-# <h2>настройки в проперти</h2>
-appium.properties - url appium-server
+## построение отчета Allure
+mvn allure:serve
 
+## настройки в классе DataProvider
+параметризация тестов
+
+## настройки в проперти:
+appium.properties
+
+# тест-кейсы:
+### Тестирование Settings
+1. Тестирование изменения четырех опций в меню Settings

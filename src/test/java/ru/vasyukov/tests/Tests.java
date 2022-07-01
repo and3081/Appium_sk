@@ -7,7 +7,7 @@ import ru.vasyukov.hooks.BaseTest;
 import ru.vasyukov.pages.BasePageObject;
 
 public class Tests extends BaseTest {
-    @DisplayName("Тестирование Wiki - ")
+    @DisplayName("Тестирование Wiki - изменение Settings")
     @ParameterizedTest(name = "{arguments}")
     @MethodSource("ru.vasyukov.tests.DataProvider#providerTest01")
     public void test01(String platform, String deviceName, String versionOS,
