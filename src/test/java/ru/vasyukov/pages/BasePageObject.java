@@ -262,57 +262,59 @@ public class BasePageObject {
      * Ожидание и выполнение реального клика, при ElementClickInterceptedException (перекрытие элемента)
      * отправляется ESC в фокус для попытки снятия попапа
      * @param el     элемент для клика
-     * @param locator  для попытки заново получить элемент
+     * @param locator  для попытки заново получить элемент / null
      * @return true- клик сделан
      */
     @SuppressWarnings("UnusedReturnValue")
     public boolean waitRealClick(WebElement el, String locator) {
         boolean[] isClick = new boolean[]{false};
-        boolean[] isCatch = new boolean[]{false};
 
-        wait.withMessage("Ожидание клика на элемент исчерпано (клик чем-то закрыт):\n" + locator + "\n")
+        new WebDriverWait(driver, timeoutInSeconds)
+                .pollingEvery(Duration.ofMillis(200))
+                .ignoreAll(List.of(TimeoutException.class))
+                .withMessage("Ожидание клика на элемент исчерпано (клик чем-то закрыт):\n" + locator + "\n")
                 .until((ExpectedCondition<Boolean>) driver -> {
                     try {
-                        if (isCatch[0]) {
-                            assert driver != null;
-                            driver.findElement(getLocatorByString(locator)).click();  // попытка заново получить элемент
-                        } else {
-                            el.click();
-                        }
+                        el.click();
                     } catch (ElementClickInterceptedException e) {
                         actions.sendKeys(Keys.ESCAPE).perform();  // попытка снять попап
-                        isCatch[0] = false;
                         return false;
                     } catch (Exception e) {
-                        isCatch[0] = true; return false;
+                        if (locator != null) {
+                            assert driver != null;
+                            driver.findElement(getLocatorByString(locator)).click();  // попытка заново получить элемент
+                        }
+                        return false;
                     }
-                    isClick[0] = true; return true; });
+                    isClick[0] = true;
+                    return true; });
         return isClick[0];
     }
 
     /**
      * Ожидание и выполнение реального send
      * @param el     элемент для send
-     * @param locator  для попытки заново получить элемент
+     * @param locator  для попытки заново получить элемент / null
      * @param text   текст для send
      * @return true- send сделан
      */
     @SuppressWarnings("UnusedReturnValue")
     public boolean waitRealSend(WebElement el, String locator, String text) {
         boolean[] isSend = new boolean[]{false};
-        boolean[] isCatch = new boolean[]{false};
 
-        wait.withMessage("Ожидание send '"+ text +"' в элемент исчерпано:\n" + locator + "\n")
+        new WebDriverWait(driver, timeoutInSeconds)
+                .pollingEvery(Duration.ofMillis(200))
+                .ignoreAll(List.of(TimeoutException.class))
+                .withMessage("Ожидание send '"+ text +"' в элемент исчерпано:\n" + locator + "\n")
                 .until((ExpectedCondition<Boolean>) driver -> {
                     try {
-                        if (isCatch[0]) {
+                        el.sendKeys(text);
+                    } catch (Exception e) {
+                        if (locator != null) {
                             assert driver != null;
                             driver.findElement(getLocatorByString(locator)).sendKeys(text);  // попытка заново получить элемент
-                        } else {
-                            el.sendKeys(text);
                         }
-                    } catch (Exception e) {
-                        isCatch[0] = true; return false;
+                        return false;
                     }
                     isSend[0] = true; return true; });
         return isSend[0];

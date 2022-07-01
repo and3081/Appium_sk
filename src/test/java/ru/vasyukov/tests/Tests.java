@@ -5,20 +5,22 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.vasyukov.hooks.BaseTest;
 import ru.vasyukov.pages.BasePageObject;
-import ru.vasyukov.pages.PageWikiMain;
 
 public class Tests extends BaseTest {
     @DisplayName("Тестирование Wiki - ")
     @ParameterizedTest(name = "{arguments}")
     @MethodSource("ru.vasyukov.tests.DataProvider#providerTest01")
     public void test01(String platform, String deviceName, String versionOS,
-                           String title) {
+                           String title, int counts) {
         connect(platform, deviceName, versionOS);
         BasePageObject.initPageMain(driver)
                 .clickButtonMenu()
                 .clickItemSettings()
                 .nextPageWikiSettings()
-                .checkTitle(title);
+                .checkTitle(title)
+                .listSettings(counts)
+                .switchListSettings()
+                .switchListSettings();
         pause(2000);
 
 //        //

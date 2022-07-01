@@ -21,6 +21,6 @@ public class DataProvider {
         return Stream.of(arguments(TestData.appium.studioPlatform(),
                 TestData.appium.studioDeviceName(),
                 TestData.appium.studioVersionOs(),
-                "Settings"));
+                "Settings", 4));
     }
 }
