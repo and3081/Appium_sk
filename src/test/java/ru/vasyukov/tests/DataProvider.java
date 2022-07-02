@@ -13,14 +13,21 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @SuppressWarnings("unused")
 public class DataProvider {
     /**
-     * Метод-провайдер для тест-кейса test01()
+     * Методы-провайдеры для тест-кейсов
      * @return  стрим аргументов: список: платформа, девайс, ОС,
-     *
+     *                            тест-данные...
      */
     protected static Stream<Arguments> providerTest01() {
         return Stream.of(arguments(TestData.appium.studioPlatform(),
                 TestData.appium.studioDeviceName(),
                 TestData.appium.studioVersionOs(),
                 "Settings", 4));
+    }
+
+    protected static Stream<Arguments> providerTest02() {
+        return Stream.of(arguments(TestData.appium.studioPlatform(),
+                TestData.appium.studioDeviceName(),
+                TestData.appium.studioVersionOs(),
+                "Wi-Fi", "Wi-Fi", "Wi-Fi"));
     }
 }

@@ -7,24 +7,38 @@ import ru.vasyukov.hooks.BaseTest;
 import ru.vasyukov.pages.BasePageObject;
 
 public class Tests extends BaseTest {
-    @DisplayName("Тестирование Wiki - изменение Settings")
+//    @DisplayName("Тестирование Wiki - изменение Settings")
+//    @ParameterizedTest(name = "{arguments}")
+//    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest01")
+//    public void test01(String platform, String deviceName, String versionOS,
+//                           String title, int counts) {
+//        connect(platform, deviceName, versionOS);
+//        BasePageObject.initPageMain(driver)
+//                .clickButtonMenu()
+//                .clickItemSettings()
+//                .nextPageWikiSettings()
+//                .checkTitle(title)
+//                .listSettings(counts)
+//                .switchAllSettings()
+//                .checkAllSettings()
+//                .switchAllSettings()
+//                .checkAllSettings();
+//    }
+
+    @DisplayName("Тестирование Wiki - поиск")
     @ParameterizedTest(name = "{arguments}")
-    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest01")
-    public void test01(String platform, String deviceName, String versionOS,
-                           String title, int counts) {
+    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest02")
+    public void test02(String platform, String deviceName, String versionOS,
+                       String textSearch, String searchResultText, String title) {
         connect(platform, deviceName, versionOS);
         BasePageObject.initPageMain(driver)
-                .clickButtonMenu()
-                .clickItemSettings()
-                .nextPageWikiSettings()
-                .checkTitle(title)
-                .listSettings(counts)
-                .switchAllSettings()
-                .checkAllSettings()
-                .switchAllSettings()
-                .checkAllSettings();
+                .initSearch()
+                .nextPageWikiSearch()
+                .findByText(textSearch)
+                .searchInResults(searchResultText)
+                .assertTopicTitle(title);
         pause(2000);
-
+    }
 //        //
 //        onboardingPage.skipOnboarding();
 //        // click на search поле - переход на страницу поиска
@@ -35,7 +49,6 @@ public class Tests extends BaseTest {
 //        searchPage.selectByText(searchResultText);
 //        // проверка в статье "Island in Indonesia"
 //        searchPage.assertByText(topicResultText);
-    }
 
 //    @DisplayName("Тестирование Wiki - поиск 'wfewfewfwegweg'")
 //    @ParameterizedTest(name = "{arguments}")

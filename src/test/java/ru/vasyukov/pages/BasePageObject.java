@@ -58,6 +58,15 @@ public class BasePageObject {
         return new PageWikiSettings();
     }
 
+    @Step("Страница поиска")
+    public PageWikiSearch nextPageWikiSearch() {
+        return new PageWikiSearch();
+    }
+
+    public String templateByText(String source, String text) {
+        return source.replace("{TEXT}", text);
+    }
+
     public WebElement waitForElementPresent(String locator, String errorMessage) {
         return wait.withMessage("Ожидание существования элемента исчерпано: " + errorMessage + ":\n" +
                         locator + "\n")
@@ -105,6 +114,13 @@ public class BasePageObject {
         return wait.withMessage("Ожидание видимости элемента исчерпано: " + errorMessage + ":\n" +
                         locator + "\n")
                 .until(ExpectedConditions.visibilityOfElementLocated(getLocatorByString(locator)));
+    }
+
+    public String waitForElementVisibleText(String locator, String text, String errorMessage) {
+        return wait.withMessage("Ожидание видимости элемента исчерпано: " + errorMessage + ":\n" +
+                        locator + "\n")
+                .until(ExpectedConditions.visibilityOfElementLocated(getLocatorByString(locator)))
+                .getText();
     }
 
     public List<WebElement> waitForChildElementVisible(WebElement parent, String childLocator, String errorMessage) {
