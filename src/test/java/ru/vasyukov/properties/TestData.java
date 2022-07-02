@@ -4,7 +4,7 @@ import org.aeonbits.owner.ConfigFactory;
 
 /**
  * Класс экзекутор для работы с проперти
- * usage:  TestData.props.имяМетодаКлюча()
+ * usage:  TestData.appium.имяМетодаКлюча()
  */
 public class TestData {
     /**

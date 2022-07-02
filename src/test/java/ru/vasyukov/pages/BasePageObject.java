@@ -73,7 +73,7 @@ public class BasePageObject {
                 .until(ExpectedConditions.presenceOfElementLocated(getLocatorByString(locator)));
     }
 
-    public WebElement waitTimeoutForElementPresent(String locator, String errorMessage, long timeoutInSeconds) {
+    public WebElement waitTimeoutForElementPresent(String locator, String errorMessage, long timeoutMs) {
         return new WebDriverWait(driver, Duration.ofMillis(timeoutMs))
                 .withMessage("Элемент не существует: " + errorMessage + ":\n" +
                         locator + "\n")
@@ -179,20 +179,34 @@ public class BasePageObject {
         swipeUp(200);
     }
 
-    public void swipeUpToFindElement(String locator, String errorMessage, int max_swipes) {
-        int already_swiped = 0;
+    /**
+     * Поиск элемента свайпом Up без ошибки
+     * @param locator       локатор
+     * @param max_swipes    max кол-во свайпов
+     * @param errorMessage  mess если не найден после всех попыток
+     */
+    public void swipeUpToFindElement(String locator, int max_swipes, String errorMessage) {
+        int swipeCount = 0;
         while (getAmountOfElements(locator) == 0) {
-            if (already_swiped > max_swipes){
+            if (swipeCount > max_swipes){
                 waitTimeoutForElementPresent(locator,
                         "Swipe Up- поиск элемента\n" + errorMessage, 0);
                 return;
             }
             swipeUpQuick();
-            ++already_swiped;
+            ++swipeCount;
         }
     }
 
-    public void swipeUpTillElementAppear(String locator, String errorMessage, int max_swipes) {
+    /**
+     * Поиск элемента свайпом Up без ошибки и клик
+     */
+    public void swipeUpToFindElementAndClick(String locator, int max_swipes, String errorMessage) {
+        swipeUpToFindElement(locator, max_swipes, errorMessage);
+        waitForElementAndClick(locator, errorMessage);
+    }
+
+    public void swipeUpTillElementAppear(String locator, int max_swipes, String errorMessage) {
         int already_swiped = 0;
         while (!isElementLocatedOnTheScreen(locator)) {
             if(already_swiped > max_swipes){
@@ -204,7 +218,7 @@ public class BasePageObject {
     }
 
     public boolean isElementLocatedOnTheScreen(String locator) {
-        int element_location_by_y = waitTimeoutForElementPresent(locator,"", 1)
+        int element_location_by_y = waitTimeoutForElementPresent(locator,"", 1000)
                 .getLocation().getY();
         int screen_size_by_y = driver.manage().window().getSize().getHeight();
         return element_location_by_y < screen_size_by_y;

@@ -32,14 +32,15 @@ public class PageWikiSearch extends BasePageObject {
         return this;
     }
 
-    @Step("Проверка title статьи: '{text}'")
+    @Step("Проверка title статьи: '{title}'")
     public PageWikiSearch assertTopicTitle(String title) {
         waitForElementVisibleText(TOPIC_TITLE, title, "Заголовок: '" + title + "'");
         return this;
     }
 
-//    public void assertEmpty(String text) {
-//        this.waitForElementPresent(SEARCH_EMPTY,
-//                "Expected No results found, but Results found for: '" + text + "'");
-//    }
+    @Step("Проверка пустого поиска для: '{text}'")
+    public PageWikiSearch assertEmpty(String text) {
+        waitForElementPresent(SEARCH_EMPTY, "Должен быть пустой поиск для: '" + text + "'");
+        return this;
+    }
 }
