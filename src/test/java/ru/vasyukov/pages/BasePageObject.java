@@ -129,6 +129,12 @@ public class BasePageObject {
                 .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, getLocatorByString(childLocator)));
     }
 
+    public List<WebElement> waitForListMoreCount(String locator, int count, String errorMessage) {
+        return wait.withMessage("Ожидание списка элементов более " + count + " исчерпано: " + errorMessage + ":\n" +
+                        locator + "\n")
+                .until(ExpectedConditions.numberOfElementsToBeMoreThan(getLocatorByString(locator), count));
+    }
+
     public WebElement waitForElementClickable(String locator, String errorMessage) {
         return wait.withMessage("Ожидание кликабельного элемента исчерпано: " + errorMessage + ":\n" +
                         locator + "\n")

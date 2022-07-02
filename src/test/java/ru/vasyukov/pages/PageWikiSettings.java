@@ -28,7 +28,6 @@ public class PageWikiSettings extends BasePageObject {
                 .limit(1)
                 .collect(Collectors.toList());
         Assertions.assertEquals(1, list.size(), "Не найден title '" + title + "'");
-        Assertions.assertEquals(title, list.get(0).getText(), "Не найден title '" + title + "'");
         return this;
     }
 

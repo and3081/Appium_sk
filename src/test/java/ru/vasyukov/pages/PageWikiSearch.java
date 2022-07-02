@@ -1,13 +1,17 @@
 package ru.vasyukov.pages;
 
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PageWikiSearch extends BasePageObject {
     private final String SEARCH_INPUT = "id:org.wikipedia:id/search_src_text";
     private final String SEARCH_EMPTY = "id:org.wikipedia:id/search_empty_view";
-    private final String RESULT_ELEMENT_BY_TEXT = "xpath://*[./*[contains(@text,'{TEXT}')]]";
+    private final String TITLE_RESULTS = "id:org.wikipedia:id/page_list_item_title";
     private final String TOPIC_TITLE = "id:org.wikipedia:id/view_page_title_text";
 
     @Step("Ввод в поле поиска: '{text}'")
@@ -18,10 +22,17 @@ public class PageWikiSearch extends BasePageObject {
 
     @Step("Поиск и клик в результатах: '{text}'")
     public PageWikiSearch searchInResults(String text) {
-        waitForElementAndClick(templateByText(RESULT_ELEMENT_BY_TEXT, text), "Результат: '" + text + "'");
+        List<WebElement> list = waitForListMoreCount(TITLE_RESULTS, 0, "Результаты: '" + text + "'")
+                .stream()
+                .filter(el-> el.getText().equals(text))
+                .limit(1)
+                .collect(Collectors.toList());
+        Assertions.assertEquals(1, list.size(), "Результаты для '" + text + "' не найдены");
+        waitRealClick(list.get(0), text);
         return this;
     }
 
+    @Step("Проверка title статьи: '{text}'")
     public PageWikiSearch assertTopicTitle(String title) {
         waitForElementVisibleText(TOPIC_TITLE, title, "Заголовок: '" + title + "'");
         return this;
