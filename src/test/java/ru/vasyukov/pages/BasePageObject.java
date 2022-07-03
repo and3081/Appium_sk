@@ -164,12 +164,17 @@ public class BasePageObject {
         return el;
     }
 
-    public void swipeUp(int timeOfSwipeMs) {
+    /**
+     * Свайп вверх - от низа (0.8 высоты окна) до нужной высоты
+     * @param timeOfSwipeMs  пауза ms между нажатием и началом движения
+     * @param endPosition коэфф высоты окна, до которой делать свайп (0.5- до середины окна)
+     */
+    public void swipeUp(int timeOfSwipeMs, double endPosition) {
         if (driver instanceof AppiumDriver) {
             Dimension size = driver.manage().window().getSize();
             int x = size.width / 2;
             int start_y = (int) (size.height * 0.8);
-            int end_y = (int) (size.height * 0.2);
+            int end_y = (int) (size.height * ((endPosition<0.01 || endPosition>0.99) ? 0.2 : endPosition));
 
             new TouchAction<>((PerformsTouchActions) driver)
                     .press(PointOption.point(x, start_y))
@@ -180,35 +185,43 @@ public class BasePageObject {
         }
     }
 
-    public void swipeUpQuick() {
-        swipeUp(200);
+    /**
+     * Свайп вверх с обычной паузой, от низа до нужной высоты
+     * @param endPosition коэфф высоты окна, до которой делать свайп (0.5- до середины окна)
+     */
+    public void swipeUpQuick(double endPosition) {
+        swipeUp(200, endPosition);
     }
 
     /**
-     * Поиск элемента свайпом Up без ошибки
+     * Поиск элемента свайпом Up без ошибки (от низа до 0.5 окна)
      * @param locator       локатор
      * @param max_swipes    max кол-во свайпов
      * @param errorMessage  mess если не найден после всех попыток
      */
-    public void swipeUpToFindElement(String locator, int max_swipes, String errorMessage) {
+    public WebElement swipeUpToFindElement(String locator, int max_swipes, String errorMessage) {
         int swipeCount = 0;
-        while (getAmountOfElements(locator) == 0) {
-            if (swipeCount > max_swipes){
-                waitTimeoutForElementPresent(locator,
-                        "Swipe Up- поиск элемента\n" + errorMessage, 0);
-                return;
+        List<WebElement> list = null;
+        while (true) {
+            list = driver.findElements(getLocatorByString(locator));
+            if (list.size() > 0 && list.get(0).isDisplayed()) {
+                break;
             }
-            swipeUpQuick();
+            if (swipeCount > max_swipes){
+                return waitTimeoutForElementPresent(locator,
+                        "Swipe Up- поиск элемента\n" + errorMessage, 0);
+            }
+            swipeUpQuick(0.5);
             ++swipeCount;
         }
+        return list.get(0);
     }
 
     /**
      * Поиск элемента свайпом Up без ошибки и клик
      */
     public void swipeUpToFindElementAndClick(String locator, int max_swipes, String errorMessage) {
-        swipeUpToFindElement(locator, max_swipes, errorMessage);
-        waitForElementAndClick(locator, errorMessage);
+        waitRealClick(swipeUpToFindElement(locator, max_swipes, errorMessage), null);
     }
 
     public void swipeUpTillElementAppear(String locator, int max_swipes, String errorMessage) {
@@ -217,7 +230,7 @@ public class BasePageObject {
             if(already_swiped > max_swipes){
                 Assertions.assertTrue(isElementLocatedOnTheScreen(locator),errorMessage);
             }
-            swipeUpQuick();
+            swipeUpQuick(0.5);
             ++already_swiped;
         }
     }

@@ -38,18 +38,18 @@ public class Tests extends BaseTest {
 //                .searchInResults(searchResultText)
 //                .assertTopicTitle(title);
 //    }
-//
-//    @DisplayName("Тестирование Wiki - свайп до title, клик картинки")
-//    @ParameterizedTest(name = "{arguments}")
-//    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest03")
-//    public void test03(String platform, String deviceName, String versionOS,
-//                       String title) {
-//        connect(platform, deviceName, versionOS);
-//        BasePageObject.initPageMain(driver)
-//                .swipeUpForTitleAndClickImage(title)
-//                .checkGalleryImage();
-//    }
-//
+
+    @DisplayName("Тестирование Wiki - свайп до title, клик картинки")
+    @ParameterizedTest(name = "{arguments}")
+    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest03")
+    public void test03(String platform, String deviceName, String versionOS,
+                       String title) {
+        connect(platform, deviceName, versionOS);
+        BasePageObject.initPageMain(driver)
+                .swipeUpForTitleAndClickImage(title)
+                .checkGalleryImage();
+    }
+
 //    @DisplayName("Тестирование Wiki - неудачный поиск")
 //    @ParameterizedTest(name = "{arguments}")
 //    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest04")
@@ -73,7 +73,6 @@ public class Tests extends BaseTest {
                 .swipeUpForTitleAndClickShare(title)
                 .nextPageWikiShare()
                 .checkShareButtonName(name);
-                pause(2000);
     }
 
     @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Bluetooth")
@@ -86,7 +85,6 @@ public class Tests extends BaseTest {
                 .swipeUpForTitleAndClickShare(title)
                 .nextPageWikiShare()
                 .checkShareButtonName(name);
-        pause(2000);
     }
 
     @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Gmail")
@@ -99,7 +97,6 @@ public class Tests extends BaseTest {
                 .swipeUpForTitleAndClickShare(title)
                 .nextPageWikiShare()
                 .checkShareButtonName(name);
-        pause(2000);
     }
 
     @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Messages")

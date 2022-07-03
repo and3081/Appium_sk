@@ -11,6 +11,7 @@ public class PageWikiShare extends BasePageObject {
     @Step("Проверка кнопки в Поделиться: {name}")
     public PageWikiShare checkShareButtonName(String name) {
         waitForElementVisible(templateByText(SHARE_BUTTON_TMPL, name),"name '" + name + "'");
+        windowScreenshot("Кнопка " + name);
         return this;
     }
 }
