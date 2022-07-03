@@ -77,6 +77,7 @@ public class PageWikiMain extends BasePageObject {
     @Step("Проверка в Download кнопки Allow")
     public PageWikiMain checkButtonAllow() {
         waitForElementClickable(DOWNLOAD_BUTTON_ALLOW, "Download - Allow");
+        windowScreenshot("Download - Allow");
         return this;
     }
 
@@ -101,6 +102,7 @@ public class PageWikiMain extends BasePageObject {
     @Step("Проверка в Header заголовка {title}")
     public PageWikiMain checkHeaderTitle(String title) {
         waitForElementVisible(templateByText(HEADER_TEXT, title), title);
+        windowScreenshot(title);
         return this;
     }
 }

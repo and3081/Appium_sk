@@ -201,7 +201,7 @@ public class BasePageObject {
      */
     public WebElement swipeUpToFindElement(String locator, int max_swipes, String errorMessage) {
         int swipeCount = 0;
-        List<WebElement> list = null;
+        List<WebElement> list;
         while (true) {
             list = driver.findElements(getLocatorByString(locator));
             if (list.size() > 0 && list.get(0).isDisplayed()) {

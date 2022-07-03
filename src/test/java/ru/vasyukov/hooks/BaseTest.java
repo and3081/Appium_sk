@@ -47,10 +47,10 @@ public class BaseTest {
         return capabilities;
     }
 
-    /**
-     * for debugging, not for the final
-     */
-    protected void pause(long ms) {
-        try { Thread.sleep(ms); } catch (Exception e) { }
-    }
+//    /**
+//     * for debugging, not for the final
+//     */
+//    protected void pause(long ms) {
+//        try { Thread.sleep(ms); } catch (Exception e) {}
+//    }
 }
