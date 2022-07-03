@@ -53,14 +53,19 @@ public class BasePageObject {
         return new PageWikiMain();
     }
 
-    @Step("Страница Settings")
+    @Step("Страница 'Settings'")
     public PageWikiSettings nextPageWikiSettings() {
         return new PageWikiSettings();
     }
 
-    @Step("Страница поиска")
+    @Step("Страница 'Поиска'")
     public PageWikiSearch nextPageWikiSearch() {
         return new PageWikiSearch();
+    }
+
+    @Step("Страница 'Поделиться'")
+    public PageWikiShare nextPageWikiShare() {
+        return new PageWikiShare();
     }
 
     public String templateByText(String source, String text) {
