@@ -16,6 +16,11 @@ public class PageWikiMain extends BasePageObject {
             "xpath://android.widget.LinearLayout" +
                     "[./*/*/*/android.widget.TextView[@resource-id='org.wikipedia:id/view_card_header_title' and @text='{TEXT}']]" +
                     "//*[@resource-id='org.wikipedia:id/view_card_action_footer_share_button']";
+    private final String TITLE_CARD_DOWNLOAD =
+            "xpath://android.widget.LinearLayout" +
+                    "[./*/*/*/android.widget.TextView[@resource-id='org.wikipedia:id/view_card_header_title' and @text='{TEXT}']]" +
+                    "//*[@resource-id='org.wikipedia:id/view_card_action_footer_button']";
+    private final String DOWNLOAD_BUTTON_ALLOW = "id:com.android.permissioncontroller:id/permission_allow_button";
 
     @Step("Клик Кнопка меню")
     public PageWikiMain clickButtonMenu() {
@@ -51,6 +56,18 @@ public class PageWikiMain extends BasePageObject {
     @Step("Swipe до title {title} и клик поделиться")
     public PageWikiMain swipeUpForTitleAndClickShare(String title) {
         swipeUpToFindElementAndClick(templateByText(TITLE_CARD_SHARE, title), 10, "title '" + title + "'");
+        return this;
+    }
+
+    @Step("Swipe до title {title} и клик Download")
+    public PageWikiMain swipeUpForTitleAndClickDownload(String title) {
+        swipeUpToFindElementAndClick(templateByText(TITLE_CARD_DOWNLOAD, title), 10, "title '" + title + "'");
+        return this;
+    }
+
+    @Step("Проверка в Download кнопки Allow")
+    public PageWikiMain checkButtonAllow() {
+        waitForElementClickable(DOWNLOAD_BUTTON_ALLOW, "Download - Allow");
         return this;
     }
 }

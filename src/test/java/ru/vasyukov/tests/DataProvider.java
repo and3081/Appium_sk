@@ -72,4 +72,11 @@ public class DataProvider {
                 TestData.appium.studioVersionOs(),
                 "Picture of the day", "Messages"));
     }
+
+    protected static Stream<Arguments> providerTest09() {
+        return Stream.of(arguments(TestData.appium.studioPlatform(),
+                TestData.appium.studioDeviceName(),
+                TestData.appium.studioVersionOs(),
+                "Picture of the day", "Messages"));
+    }
 }

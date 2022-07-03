@@ -38,18 +38,18 @@ public class Tests extends BaseTest {
 //                .searchInResults(searchResultText)
 //                .assertTopicTitle(title);
 //    }
-
-    @DisplayName("Тестирование Wiki - свайп до title, клик картинки")
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest03")
-    public void test03(String platform, String deviceName, String versionOS,
-                       String title) {
-        connect(platform, deviceName, versionOS);
-        BasePageObject.initPageMain(driver)
-                .swipeUpForTitleAndClickImage(title)
-                .checkGalleryImage();
-    }
-
+//
+//    @DisplayName("Тестирование Wiki - свайп до title, клик картинки")
+//    @ParameterizedTest(name = "{arguments}")
+//    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest03")
+//    public void test03(String platform, String deviceName, String versionOS,
+//                       String title) {
+//        connect(platform, deviceName, versionOS);
+//        BasePageObject.initPageMain(driver)
+//                .swipeUpForTitleAndClickImage(title)
+//                .checkGalleryImage();
+//    }
+//
 //    @DisplayName("Тестирование Wiki - неудачный поиск")
 //    @ParameterizedTest(name = "{arguments}")
 //    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest04")
@@ -62,53 +62,75 @@ public class Tests extends BaseTest {
 //                .findByText(searchText)
 //                .assertEmpty(searchText);
 //    }
+//
+//    @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Maps")
+//    @ParameterizedTest(name = "{arguments}")
+//    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest05")
+//    public void test05(String platform, String deviceName, String versionOS,
+//                       String title, String name) {
+//        connect(platform, deviceName, versionOS);
+//        BasePageObject.initPageMain(driver)
+//                .swipeUpForTitleAndClickShare(title)
+//                .nextPageWikiShare()
+//                .checkShareButtonName(name);
+//    }
+//
+//    @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Bluetooth")
+//    @ParameterizedTest(name = "{arguments}")
+//    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest06")
+//    public void test06(String platform, String deviceName, String versionOS,
+//                       String title, String name) {
+//        connect(platform, deviceName, versionOS);
+//        BasePageObject.initPageMain(driver)
+//                .swipeUpForTitleAndClickShare(title)
+//                .nextPageWikiShare()
+//                .checkShareButtonName(name);
+//    }
+//
+//    @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Gmail")
+//    @ParameterizedTest(name = "{arguments}")
+//    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest07")
+//    public void test07(String platform, String deviceName, String versionOS,
+//                       String title, String name) {
+//        connect(platform, deviceName, versionOS);
+//        BasePageObject.initPageMain(driver)
+//                .swipeUpForTitleAndClickShare(title)
+//                .nextPageWikiShare()
+//                .checkShareButtonName(name);
+//    }
+//
+//    @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Messages")
+//    @ParameterizedTest(name = "{arguments}")
+//    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest08")
+//    public void test08(String platform, String deviceName, String versionOS,
+//                       String title, String name) {
+//        connect(platform, deviceName, versionOS);
+//        BasePageObject.initPageMain(driver)
+//                .swipeUpForTitleAndClickShare(title)
+//                .nextPageWikiShare()
+//                .checkShareButtonName(name);
+//    }
+//
+//    @DisplayName("Тестирование Wiki - свайп до title, Download")
+//    @ParameterizedTest(name = "{arguments}")
+//    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest09")
+//    public void test09(String platform, String deviceName, String versionOS,
+//                       String title, String name) {
+//        connect(platform, deviceName, versionOS);
+//        BasePageObject.initPageMain(driver)
+//                .swipeUpForTitleAndClickDownload(title)
+//                .checkButtonAllow();
+//    }
 
-    @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Maps")
+    @DisplayName("Тестирование Wiki - свайп до title, Download")
     @ParameterizedTest(name = "{arguments}")
-    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest05")
-    public void test05(String platform, String deviceName, String versionOS,
+    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest10")
+    public void test10(String platform, String deviceName, String versionOS,
                        String title, String name) {
         connect(platform, deviceName, versionOS);
         BasePageObject.initPageMain(driver)
-                .swipeUpForTitleAndClickShare(title)
-                .nextPageWikiShare()
-                .checkShareButtonName(name);
-    }
-
-    @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Bluetooth")
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest06")
-    public void test06(String platform, String deviceName, String versionOS,
-                       String title, String name) {
-        connect(platform, deviceName, versionOS);
-        BasePageObject.initPageMain(driver)
-                .swipeUpForTitleAndClickShare(title)
-                .nextPageWikiShare()
-                .checkShareButtonName(name);
-    }
-
-    @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Gmail")
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest07")
-    public void test07(String platform, String deviceName, String versionOS,
-                       String title, String name) {
-        connect(platform, deviceName, versionOS);
-        BasePageObject.initPageMain(driver)
-                .swipeUpForTitleAndClickShare(title)
-                .nextPageWikiShare()
-                .checkShareButtonName(name);
-    }
-
-    @DisplayName("Тестирование Wiki - свайп до title, Поделиться, Messages")
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest08")
-    public void test08(String platform, String deviceName, String versionOS,
-                       String title, String name) {
-        connect(platform, deviceName, versionOS);
-        BasePageObject.initPageMain(driver)
-                .swipeUpForTitleAndClickShare(title)
-                .nextPageWikiShare()
-                .checkShareButtonName(name);
+                .swipeUpForTitleAndClickDownload(title)
+                .checkButtonAllow();
         pause(2000);
     }
 }

@@ -22,3 +22,4 @@ appium.properties
 6. Свайп до карточки "Picture of the day", проверка в Поделиться наличия кнопки Bluetooth
 7. Свайп до карточки "Picture of the day", проверка в Поделиться наличия кнопки Gmail
 8. Свайп до карточки "Picture of the day", проверка в Поделиться наличия кнопки Messages
+9. Свайп до карточки "Picture of the day", проверка в Download наличия кнопки Allow
