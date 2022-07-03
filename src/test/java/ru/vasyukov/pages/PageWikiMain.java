@@ -21,6 +21,15 @@ public class PageWikiMain extends BasePageObject {
                     "[./*/*/*/android.widget.TextView[@resource-id='org.wikipedia:id/view_card_header_title' and @text='{TEXT}']]" +
                     "//*[@resource-id='org.wikipedia:id/view_card_action_footer_button']";
     private final String DOWNLOAD_BUTTON_ALLOW = "id:com.android.permissioncontroller:id/permission_allow_button";
+    private final String FOOTER_BUTTON_MY_LISTS =
+            "xpath://android.widget.FrameLayout[@content-desc='My lists']";
+    private final String FOOTER_BUTTON_HISTORY =
+            "xpath://android.widget.FrameLayout[@content-desc='History']";
+    private final String FOOTER_BUTTON_NEARBY =
+            "xpath://android.widget.FrameLayout[@content-desc='Nearby']";
+    private final String HEADER_TEXT =
+            "xpath://android.view.ViewGroup" +
+                    "[@resource-id='org.wikipedia:id/single_fragment_toolbar']//*[@text='{TEXT}']";
 
     @Step("Клик Кнопка меню")
     public PageWikiMain clickButtonMenu() {
@@ -68,6 +77,30 @@ public class PageWikiMain extends BasePageObject {
     @Step("Проверка в Download кнопки Allow")
     public PageWikiMain checkButtonAllow() {
         waitForElementClickable(DOWNLOAD_BUTTON_ALLOW, "Download - Allow");
+        return this;
+    }
+
+    @Step("Клик в футере кнопки My Lists")
+    public PageWikiMain clickFooterButtonMyLists() {
+        waitForElementAndClick(FOOTER_BUTTON_MY_LISTS, "My lists");
+        return this;
+    }
+
+    @Step("Клик в футере кнопки History")
+    public PageWikiMain clickFooterButtonHistory() {
+        waitForElementAndClick(FOOTER_BUTTON_HISTORY, "History");
+        return this;
+    }
+
+    @Step("Клик в футере кнопки Nearby")
+    public PageWikiMain clickFooterButtonNearby() {
+        waitForElementAndClick(FOOTER_BUTTON_NEARBY, "Nearby");
+        return this;
+    }
+
+    @Step("Проверка в Header заголовка {title}")
+    public PageWikiMain checkHeaderTitle(String title) {
+        waitForElementVisible(templateByText(HEADER_TEXT, title), title);
         return this;
     }
 }

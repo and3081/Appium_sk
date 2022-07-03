@@ -122,15 +122,51 @@ public class Tests extends BaseTest {
 //                .checkButtonAllow();
 //    }
 
-    @DisplayName("Тестирование Wiki - свайп до title, Download")
+    @DisplayName("Тестирование Wiki - кнопка в футере My lists")
     @ParameterizedTest(name = "{arguments}")
     @MethodSource("ru.vasyukov.tests.DataProvider#providerTest10")
     public void test10(String platform, String deviceName, String versionOS,
-                       String title, String name) {
+                       String title) {
         connect(platform, deviceName, versionOS);
         BasePageObject.initPageMain(driver)
-                .swipeUpForTitleAndClickDownload(title)
-                .checkButtonAllow();
-        pause(2000);
+                .clickFooterButtonMyLists()
+                .checkHeaderTitle(title);
+    }
+
+    @DisplayName("Тестирование Wiki - кнопка в футере History")
+    @ParameterizedTest(name = "{arguments}")
+    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest11")
+    public void test11(String platform, String deviceName, String versionOS,
+                       String title) {
+        connect(platform, deviceName, versionOS);
+        BasePageObject.initPageMain(driver)
+                .clickFooterButtonHistory()
+                .checkHeaderTitle(title);
+    }
+
+    @DisplayName("Тестирование Wiki - кнопка в футере Nearby")
+    @ParameterizedTest(name = "{arguments}")
+    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest12")
+    public void test12(String platform, String deviceName, String versionOS,
+                       String title) {
+        connect(platform, deviceName, versionOS);
+        BasePageObject.initPageMain(driver)
+                .clickFooterButtonNearby()
+                .checkHeaderTitle(title);
+    }
+
+    @DisplayName("Тестирование Wiki - кнопки в футере Nearby - History - My lists")
+    @ParameterizedTest(name = "{arguments}")
+    @MethodSource("ru.vasyukov.tests.DataProvider#providerTest13")
+    public void test13(String platform, String deviceName, String versionOS,
+                       String title1, String title2, String title3) {
+        connect(platform, deviceName, versionOS);
+        BasePageObject.initPageMain(driver)
+                .clickFooterButtonNearby()
+                .checkHeaderTitle(title1)
+                .clickFooterButtonHistory()
+                .checkHeaderTitle(title2)
+                .clickFooterButtonMyLists()
+                .checkHeaderTitle(title3);
     }
 }

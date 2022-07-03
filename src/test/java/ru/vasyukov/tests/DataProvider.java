@@ -79,4 +79,32 @@ public class DataProvider {
                 TestData.appium.studioVersionOs(),
                 "Picture of the day", "Messages"));
     }
+
+    protected static Stream<Arguments> providerTest10() {
+        return Stream.of(arguments(TestData.appium.studioPlatform(),
+                TestData.appium.studioDeviceName(),
+                TestData.appium.studioVersionOs(),
+                "My lists"));
+    }
+
+    protected static Stream<Arguments> providerTest11() {
+        return Stream.of(arguments(TestData.appium.studioPlatform(),
+                TestData.appium.studioDeviceName(),
+                TestData.appium.studioVersionOs(),
+                "History"));
+    }
+
+    protected static Stream<Arguments> providerTest12() {
+        return Stream.of(arguments(TestData.appium.studioPlatform(),
+                TestData.appium.studioDeviceName(),
+                TestData.appium.studioVersionOs(),
+                "Nearby"));
+    }
+
+    protected static Stream<Arguments> providerTest13() {
+        return Stream.of(arguments(TestData.appium.studioPlatform(),
+                TestData.appium.studioDeviceName(),
+                TestData.appium.studioVersionOs(),
+                "Nearby", "History", "My lists"));
+    }
 }
